@@ -21,8 +21,12 @@ class Calculadora:
     
     def raiz_quadrada(self, x):
         if x <= 0:
-            raise ValueError("Não é possível calcular a raiz de zero.")
+            raise ValueError("Não é possível calcular a raiz de zero ou negativo.")
         return math.sqrt(x)
+    
+    def logaritmo_natural(self, x):
+        if x <= 0:
+            raise ValueError("O logaritmo natural é definido apenas para números positivos")
 
 
 class TestCalculadora(unittest.TestCase):
@@ -49,7 +53,34 @@ class TestCalculadora(unittest.TestCase):
     def test_raiz_quadrada(self):
         self.assertEqual(self.calc.raiz_quadrada(16),4)
         self.assertEqual(self.calc.raiz_quadrada(-2),3)
-        
+
+    def test_potenciacao(self):
+        self.assertEqual(self.calc.potenciacao(2,3), 8)
+        self.assertEqual(self.calc.potenciacao(-2,3), -8)
+        self.assertEqual(self.calc.potenciacao(2,0), 1)
+        self.assertEqual(self.calc.potenciacao(0,2), 0)
+        self.assertEqual(self.calc.potenciacao(0,0), 1)
+
+    def test_seno(self):
+        self.assertAlmostEqual(self.calc.seno(0), 0)
+        self.assertAlmostEqual(self.calc.seno(math.pi/2), 1)
+        self.assertAlmostEqual(self.calc.seno(math.pi), 0)
+        self.assertAlmostEqual(self.calc.seno(3*math.pi/2), -1)
+        self.assertAlmostEqual(self.calc.seno(2*math.pi), 0)
+
+    def test_cosseno(self):
+        self.assertAlmostEqual(self.calc.cosseno(0), 1)
+        self.assertAlmostEqual(self.calc.cosseno(math.pi/2), 0)
+        self.assertAlmostEqual(self.calc.cosseno(math.pi), -1)
+        self.assertAlmostEqual(self.calc.cosseno(3*math.pi/2), 0)
+        self.assertAlmostEqual(self.calc.cosseno(2*math.pi/2), 1)
+
+    def test_tangente(self):
+        self.assertAlmostEqual(self.calc.tangente(0), 0)
+        self.assertAlmostEqual(self.calc.tangente(math.pi/4), 1)
+        self.assertAlmostEqual(self.calc.tangente(3*math.pi/4), -1)
+
+
 
 if __name__ == '__main__':
     unittest.main()
